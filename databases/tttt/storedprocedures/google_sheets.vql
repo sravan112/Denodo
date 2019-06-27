@@ -1,0 +1,4 @@
+﻿CREATE OR REPLACE PROCEDURE google_sheets
+    CLASSNAME='com.denodo.connect.google.sheet.storedprocedure.GoogleSheetTransposeStoreProcedure'
+    JARS 'denodo-google-sheets-tool-stored-procedure-7.0';
+

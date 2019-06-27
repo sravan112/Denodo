@@ -1,0 +1,30 @@
+﻿CREATE OR REPLACE WRAPPER JDBC check_manual
+    DATASOURCENAME=ds_sql_server
+    SQLSENTENCE='select user_id,project_id,detail from project_users'   
+    OUTPUTSCHEMA (
+        user_id = 'user_id' :'java.lang.Integer' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE NOT UPDATEABLE,
+        project_id = 'project_id' :'java.lang.Integer' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE NOT UPDATEABLE,
+        detail = 'detail' :'java.time.LocalDate' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='91', sourcetypename='date')  SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE check_manual I18N us_mst (
+        user_id:int (sourcetypedecimals = '0', sourcetypesize = '10', sourcetypeid = '4'), 
+        project_id:int (sourcetypedecimals = '0', sourcetypesize = '10', sourcetypeid = '4'), 
+        detail:localdate (sourcetypedecimals = '0', sourcetypesize = '10', sourcetypeid = '91')
+    )
+    PRIMARY KEY ( 'user_id' , 'project_id' )
+    CACHE FULL
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD check_manual(
+        I18N us_mst
+        CONSTRAINTS (
+             ADD user_id NOS ZERO ()
+             ADD project_id NOS ZERO ()
+             ADD detail NOS ZERO ()
+        )
+        OUTPUTLIST (detail, project_id, user_id
+        )
+        WRAPPER (jdbc check_manual)
+    );
+

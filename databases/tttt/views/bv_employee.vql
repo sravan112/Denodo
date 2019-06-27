@@ -1,0 +1,37 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_employee
+    DATASOURCENAME=testcase
+    CATALOGNAME='${databases.tttt.views.jdbc.bv_employee.CATALOGNAME}' 
+    SCHEMANAME='${databases.tttt.views.jdbc.bv_employee.SCHEMANAME}' 
+    RELATIONNAME='employee' 
+    OUTPUTSCHEMA (
+        emp_id = 'emp_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        emp_name = 'emp_name' :'java.lang.String' (OPT) (sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE,
+        mgr_emp_id = 'mgr_emp_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE,
+        dept_no = 'dept_no' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'PK__employee__1299A8619BCA71CA' PRIMARY KEY ( 'emp_id' )
+    INDEX 'PK__employee__1299A8619BCA71CA' CLUSTER UNIQUE PRIMARY ( 'emp_id' );
+
+CREATE OR REPLACE TABLE bv_employee I18N au_cst (
+        emp_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4'), 
+        emp_name:text (sourcetypesize = '100', sourcetypeid = '12'), 
+        mgr_emp_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4'), 
+        dept_no:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4')
+    )
+    CONSTRAINT 'PK__employee__1299A8619BCA71CA' PRIMARY KEY ( 'emp_id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_employee(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD emp_id (any) OPT ANY
+             ADD emp_name (any) OPT ANY
+             ADD mgr_emp_id (any) OPT ANY
+             ADD dept_no (any) OPT ANY
+        )
+        OUTPUTLIST (dept_no, emp_id, emp_name, mgr_emp_id
+        )
+        WRAPPER (jdbc bv_employee)
+    );
+

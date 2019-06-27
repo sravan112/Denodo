@@ -1,0 +1,4 @@
+﻿CREATE OR REPLACE PROCEDURE incremental_cache_load
+    CLASSNAME='com.denodo.connect.incrementalcacheload.storedprocedure.IncrementalCacheLoadStoreProcedure'
+    JARS 'denodo-incremental-cache-load-7.0';
+

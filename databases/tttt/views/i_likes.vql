@@ -1,0 +1,8 @@
+﻿CREATE OR REPLACE INTERFACE VIEW i_likes (
+        "EMP":text (sourcetypesize = '2147483647', sourcetypeid = '2005')
+    )
+    SET IMPLEMENTATION likes;
+
+ALTER VIEW i_likes
+ LAYOUT (likes = [474, 116, 200, 46]);
+

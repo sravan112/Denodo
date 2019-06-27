@@ -1,0 +1,25 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC likes
+    DATASOURCENAME=testcase
+    CATALOGNAME='${databases.tttt.views.jdbc.likes.CATALOGNAME}' 
+    SCHEMANAME='${databases.tttt.views.jdbc.likes.SCHEMANAME}' 
+    RELATIONNAME='likes' 
+    OUTPUTSCHEMA (
+        "EMP" = 'EMP' :'java.lang.String' (OPT) (sourcetypesize='2147483647', sourcetypeid='-1', sourcetypename='text')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE likes I18N au_cst (
+        "EMP":text (sourcetypesize = '2147483647', sourcetypeid = '2005')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD likes(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD "EMP" (any) OPT ANY
+        )
+        OUTPUTLIST ("EMP"
+        )
+        WRAPPER (jdbc likes)
+    );
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_bv_dept AS SELECT bv_dept.deptno AS deptno, bv_dept.dname AS dname, bv_dept.loc AS loc FROM bv_dept;
+
+ALTER VIEW dv_bv_dept
+ LAYOUT (bv_dept = [20, 20, 200, 86]);
+

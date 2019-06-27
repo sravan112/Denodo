@@ -1,0 +1,35 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC project_users
+    DATASOURCENAME=testcase
+    CATALOGNAME='${databases.tttt.views.jdbc.project_users.CATALOGNAME}' 
+    SCHEMANAME='${databases.tttt.views.jdbc.project_users.SCHEMANAME}' 
+    RELATIONNAME='project_users' 
+    OUTPUTSCHEMA (
+        user_id = 'user_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        project_id = 'project_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        detail = 'detail' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='91', sourcetypename='date')  SORTABLE
+    )
+    CONSTRAINT 'project_users_pk' PRIMARY KEY ( 'user_id' , 'project_id' )
+    INDEX 'project_users_pk' CLUSTER UNIQUE PRIMARY ( 'user_id' , 'project_id' );
+
+CREATE OR REPLACE TABLE project_users I18N us_mst (
+        user_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4'), 
+        project_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4'), 
+        detail:localdate (sourcetypedecimals = '0', sourcetypesize = '10', sourcetypeid = '91')
+    )
+    CONSTRAINT 'project_users_pk' PRIMARY KEY ( 'user_id' , 'project_id' )
+    CACHE FULL
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD project_users(
+        I18N us_mst
+        CONSTRAINTS (
+             ADD user_id (any) OPT ANY
+             ADD project_id (any) OPT ANY
+             ADD detail (any) OPT ANY
+        )
+        OUTPUTLIST (detail, project_id, user_id
+        )
+        WRAPPER (jdbc project_users)
+    );
+

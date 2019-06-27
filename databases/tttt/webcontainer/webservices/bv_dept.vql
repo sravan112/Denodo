@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE bv_dept;
+
+DEPLOY WEBSERVICE bv_dept LOGIN = '${databases.tttt.webcontainer.webservices.bv_dept.LOGIN}' PASSWORD = '${databases.tttt.webcontainer.webservices.bv_dept.PASSWORD}' ${databases.tttt.webcontainer.webservices.bv_dept.PASSWORD.ENCRYPTED};
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_oracle_employees_bv_employee AS SELECT bv_employee.emp_id AS emp_id, bv_employee.emp_name AS emp_name, bv_employee.mgr_emp_id AS mgr_emp_id, bv_employee.dept_no AS dept_no, oracle_regions.region_id AS region_id, oracle_regions.region_name AS region_name FROM "123456" AS oracle_regions INNER JOIN bv_employee AS bv_employee ON oracle_regions.region_id = bv_employee.emp_id  CONTEXT ('I18N' = 'us_mst');
+
+ALTER VIEW dv_oracle_employees_bv_employee
+ LAYOUT ("123456" = [595, 235, 200, 66], bv_employee = [962, 154, 200, 106]);
+

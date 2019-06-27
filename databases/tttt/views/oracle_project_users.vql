@@ -1,0 +1,34 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC oracle_project_users
+    DATASOURCENAME=oracle
+    SCHEMANAME='${databases.tttt.views.jdbc.oracle_project_users.SCHEMANAME}' ESCAPE
+    RELATIONNAME='PROJECT_USERS' 
+    OUTPUTSCHEMA (
+        user_id = 'USER_ID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        project_id = 'PROJECT_ID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        detail = 'DETAIL' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE
+    )
+    CONSTRAINT 'PROJECT_USERS_PK' PRIMARY KEY ( 'USER_ID' , 'PROJECT_ID' )
+    INDEX 'PROJECT_USERS_PK' CLUSTER UNIQUE PRIMARY ( 'USER_ID' , 'PROJECT_ID' );
+
+CREATE OR REPLACE TABLE oracle_project_users I18N us_mst (
+        user_id:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3'), 
+        project_id:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3'), 
+        detail:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93')
+    )
+    CONSTRAINT 'PROJECT_USERS_PK' PRIMARY KEY ( 'user_id' , 'project_id' )
+    CACHE FULL INCREMENTAL 'detail >= cast(''@LASTCACHEREFRESH'' AS TIMESTAMP)' NO_DELEGATE_CONDITIONS_TO_SOURCE 
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD oracle_project_users(
+        I18N us_mst
+        CONSTRAINTS (
+             ADD user_id (any) OPT ANY
+             ADD project_id (any) OPT ANY
+             ADD detail (any) OPT ANY
+        )
+        OUTPUTLIST (detail, project_id, user_id
+        )
+        WRAPPER (jdbc oracle_project_users)
+    );
+

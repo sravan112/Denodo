@@ -1,0 +1,30 @@
+﻿CREATE OR REPLACE REST WEBSERVICE oracle_employees
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    DEFAULTREPRESENTATION = HTML
+    SUPPORTEDREPRESENTATIONS (HTML, XML, JSON)
+    RESOURCES (
+        VIEW oracle_employees FIELDS (
+            employee_id : 'int', 
+            first_name : 'text', 
+            last_name : 'text', 
+            email : 'text', 
+            phone_number : 'text', 
+            hire_date : 'timestamp', 
+            job_id : 'text', 
+            salary : 'decimal', 
+            commission_pct : 'decimal', 
+            manager_id : 'int', 
+            department_id : 'int'
+        )
+    )
+    OPTIONS ( NULLVALUESASEMPTYXMLELEMENTS = false
+        PROCESS_FUNCTIONS_IN_SELECT_PARAMETER = true ) 
+    OPENAPI2 ( API_VERSION = '1.0.0' ) ;
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_test111_0 AS SELECT test111_0.return_value_0 AS return_value_0, test111_0.emp_sal AS emp_sal, test111_0.emp_name AS emp_name, test111_0.emp_id AS emp_id, test FROM test111_0 USING PARAMETERS ( test : text);
+
+ALTER VIEW dv_test111_0
+ LAYOUT (test111_0 = [20, 20, 200, 106]);
+

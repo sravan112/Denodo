@@ -1,0 +1,37 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_mac
+    DATASOURCENAME=oracle
+    SCHEMANAME='${databases.tttt.views.jdbc.bv_mac.SCHEMANAME}' ESCAPE
+    RELATIONNAME='MAC' 
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        reserve = 'RESERVE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE,
+        checklist = 'CHECKLIST' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='10', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        samm = 'SAMM' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='10', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+    )
+    CONSTRAINT 'SYS_C007205' PRIMARY KEY ( 'ID' )
+    INDEX 'SYS_C007205' CLUSTER UNIQUE PRIMARY ( 'ID' );
+
+CREATE OR REPLACE TABLE bv_mac I18N us_mst (
+        id:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3'), 
+        reserve:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93'), 
+        checklist:text (sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '12'), 
+        samm:text (sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '12')
+    )
+    PRIMARY KEY ( 'id' )
+    CACHE FULL
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_mac(
+        I18N us_mst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD reserve (any) OPT ANY
+             ADD checklist (any) OPT ANY
+             ADD samm (any) OPT ANY
+        )
+        OUTPUTLIST (checklist, id, reserve, samm
+        )
+        WRAPPER (jdbc bv_mac)
+    );
+

@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE oracle_employees;
+
+DEPLOY WEBSERVICE oracle_employees LOGIN = '${databases.tttt.webcontainer.webservices.oracle_employees.LOGIN}' PASSWORD = '${databases.tttt.webcontainer.webservices.oracle_employees.PASSWORD}' ${databases.tttt.webcontainer.webservices.oracle_employees.PASSWORD.ENCRYPTED};
+

@@ -1,0 +1,37 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC testing1_0
+    DATASOURCENAME=testcase
+    CATALOGNAME='${databases.tttt.views.jdbc.testing1_0.CATALOGNAME}' 
+    SCHEMANAME='${databases.tttt.views.jdbc.testing1_0.SCHEMANAME}' 
+    PROCEDURENAME='testing;1' ESCAPE
+    OUTPUTSCHEMA (
+        return_value_0 = '@RETURN_VALUE' :'java.lang.Integer' (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL NOT SORTABLE PARAMINDEX=1 PARAMTYPE=5,
+        say_0 = '@say' :'java.lang.String' (sourcetypesize='10', DEFAULTVALUE='''sravan''', sourcetypeid='12', sourcetypename='varchar')  NOT NULL NOT SORTABLE PARAMINDEX=2 PARAMTYPE=1,
+        id = 'ID' :'java.lang.Integer' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE RESULTSETINDEX=1 PARAMTYPE=0 FROMFLATTEN='RESULT_1',
+        salary = 'Salary' :'java.lang.Integer' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE RESULTSETINDEX=1 PARAMTYPE=0 FROMFLATTEN='RESULT_1',
+        name = 'Name' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE RESULTSETINDEX=1 PARAMTYPE=0 FROMFLATTEN='RESULT_1'
+    );
+
+CREATE OR REPLACE TABLE testing1_0 I18N au_cst (
+        return_value_0:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4'), 
+        say_0:text (extern, sourcetypesize = '10', sourcetypeid = '12'), 
+        id:int (sourcetypedecimals = '0', sourcetypesize = '10', sourcetypeid = '4'), 
+        salary:int (sourcetypedecimals = '0', sourcetypesize = '10', sourcetypeid = '4'), 
+        name:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD testing1_0(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD return_value_0 NOS ZERO ()
+             ADD say_0 (=,is null) OBL ONE
+             ADD id NOS ZERO ()
+             ADD salary NOS ZERO ()
+             ADD name NOS ZERO ()
+        )
+        OUTPUTLIST (id, name, return_value_0, salary, say_0
+        )
+        WRAPPER (jdbc testing1_0)
+    );
+

@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_dept
+    DATASOURCENAME=oracle
+    SCHEMANAME='${databases.tttt.views.jdbc.bv_dept.SCHEMANAME}' ESCAPE
+    RELATIONNAME='DEPT_SRAVAN' 
+    OUTPUTSCHEMA (
+        deptno = 'DEPTNO' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='2', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        dname = 'DNAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='14', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        loc = 'LOC' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='13', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+    )
+    CONSTRAINT 'PK_DEPT' PRIMARY KEY ( 'DEPTNO' )
+    INDEX 'PK_DEPT' CLUSTER UNIQUE PRIMARY ( 'DEPTNO' );
+
+CREATE OR REPLACE TABLE bv_dept I18N au_cst (
+        deptno:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '2', sourcetypeid = '4'), 
+        dname:text (sourcetyperadix = '10', sourcetypesize = '14', sourcetypeid = '12'), 
+        loc:text (sourcetyperadix = '10', sourcetypesize = '13', sourcetypeid = '12')
+    )
+    PRIMARY KEY ( 'deptno' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_dept(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD deptno (any) OPT ANY
+             ADD dname (any) OPT ANY
+             ADD loc (any) OPT ANY
+        )
+        OUTPUTLIST (deptno, dname, loc
+        )
+        WRAPPER (jdbc bv_dept)
+    );
+

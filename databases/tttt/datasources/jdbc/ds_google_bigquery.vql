@@ -1,0 +1,29 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_google_bigquery
+    DRIVERCLASSNAME = 'com.simba.googlebigquery.jdbc42.Driver'
+    DATABASEURI = '${databases.tttt.datasources.jdbc.ds_google_bigquery.DATABASEURI}'
+    USERNAME = '${databases.tttt.datasources.jdbc.ds_google_bigquery.USERNAME}'
+    USERPASSWORD = ''
+    CLASSPATH = 'C:\Denodo\DenodoPlatform7.0\lib-external\jdbc-drivers\bigquery\GoogleBigQueryJDBC42.jar'
+    DATABASENAME = 'Generic'
+    DATABASEVERSION = ''
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = ''
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXSLEEPINGPS = 4
+    INITIALCAPACITYPS = 8
+    DATA_LOAD_CONFIGURATION (
+        BATCHINSERTSIZE = 200
+    );
+

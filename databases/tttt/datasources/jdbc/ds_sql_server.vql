@@ -1,0 +1,32 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_sql_server
+    DRIVERCLASSNAME = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
+    DATABASEURI = '${databases.tttt.datasources.jdbc.ds_sql_server.DATABASEURI}'
+    USERNAME = '${databases.tttt.datasources.jdbc.ds_sql_server.USERNAME}'
+    USERPASSWORD = '${databases.tttt.datasources.jdbc.ds_sql_server.USERPASSWORD}' ${databases.tttt.datasources.jdbc.ds_sql_server.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'C:\Denodo\DenodoPlatform7.0\lib\extensions\jdbc-drivers\mssql-jdbc-6.x'
+    DATABASENAME = 'Generic'
+    DATABASEVERSION = ''
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = 'Select 1'
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXSLEEPINGPS = 4
+    INITIALCAPACITYPS = 8
+    DATA_LOAD_CONFIGURATION (
+        BATCHINSERTSIZE = 200
+    )
+    SOURCECONFIGURATION (
+        delegatescalarfunctionslist = (abs, ceil, coalesce, div, floor, getday, gethour, getminute, getmonth, getsecond, getyear, len, log, lower, mod, mult, now, nullif, position, pow, power, replace, round, sqrt, subtract, sum, textcat, textconstant, trim, upper)
+    );
+

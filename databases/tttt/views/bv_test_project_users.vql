@@ -1,0 +1,40 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_test_project_users
+    DATASOURCENAME=testcase
+    CATALOGNAME='${databases.tttt.views.jdbc.bv_test_project_users.CATALOGNAME}' 
+    SCHEMANAME='${databases.tttt.views.jdbc.bv_test_project_users.SCHEMANAME}' 
+    RELATIONNAME='project_users' 
+    OUTPUTSCHEMA (
+        user_id = 'user_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        project_id = 'project_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        detail = 'detail' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='91', sourcetypename='date')  SORTABLE,
+        email = 'Email' :'java.lang.String' (OPT) (sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        casing = 'casing' :'java.lang.String' (OPT) (sourcetypesize='255', sourcetypeid='12', sourcetypename='varchar')  SORTABLE
+    )
+    CONSTRAINT 'project_users_pk' PRIMARY KEY ( 'user_id' , 'project_id' )
+    INDEX 'project_users_pk' CLUSTER UNIQUE PRIMARY ( 'user_id' , 'project_id' );
+
+CREATE OR REPLACE TABLE bv_test_project_users I18N au_cst (
+        user_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4'), 
+        project_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4'), 
+        detail:localdate (sourcetypedecimals = '0', sourcetypesize = '10', sourcetypeid = '91'), 
+        email:text (sourcetypesize = '100', sourcetypeid = '12'), 
+        casing:text (sourcetypesize = '255', sourcetypeid = '12')
+    )
+    CONSTRAINT 'project_users_pk' PRIMARY KEY ( 'user_id' , 'project_id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_test_project_users(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD user_id (any) OPT ANY
+             ADD project_id (any) OPT ANY
+             ADD detail (any) OPT ANY
+             ADD email (any) OPT ANY
+             ADD casing (any) OPT ANY
+        )
+        OUTPUTLIST (casing, detail, email, project_id, user_id
+        )
+        WRAPPER (jdbc bv_test_project_users)
+    );
+

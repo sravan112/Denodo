@@ -1,0 +1,25 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE ODBC testing
+    DSN = '${databases.tttt.datasources.odbc.testing.DSN}'
+    USERNAME = '${databases.tttt.datasources.odbc.testing.USERNAME}'
+    USERPASSWORD = '${databases.tttt.datasources.odbc.testing.USERPASSWORD}'
+    CLASSPATH = 'jdbc-odbc'
+    DATABASENAME = 'Generic'
+    DATABASEVERSION = ''
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = ''
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXSLEEPINGPS = 4
+    INITIALCAPACITYPS = 8;
+
