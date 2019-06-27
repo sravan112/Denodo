@@ -1,0 +1,31 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC emp
+    DATASOURCENAME=testcase
+    CATALOGNAME='${databases.tttt.views.jdbc.emp.CATALOGNAME}' 
+    SCHEMANAME='${databases.tttt.views.jdbc.emp.SCHEMANAME}' 
+    RELATIONNAME='Emp' 
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        name = 'Name' :'java.lang.String' (OPT) (sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        salary = 'Salary' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE emp I18N us_mst (
+        id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4'), 
+        name:text (sourcetypesize = '50', sourcetypeid = '12'), 
+        salary:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD emp(
+        I18N us_mst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD name (any) OPT ANY
+             ADD salary (any) OPT ANY
+        )
+        OUTPUTLIST (id, name, salary
+        )
+        WRAPPER (jdbc emp)
+    );
+
