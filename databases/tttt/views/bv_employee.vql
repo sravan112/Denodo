@@ -14,7 +14,7 @@ CREATE OR REPLACE WRAPPER JDBC bv_employee
     INDEX 'PK__employee__1299A8619BCA71CA' CLUSTER UNIQUE PRIMARY ( 'emp_id' );
 
 CREATE OR REPLACE TABLE bv_employee I18N au_cst (
-        emp_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4'), 
+        emp_id:text (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '1'), 
         emp_name:text (sourcetypesize = '100', sourcetypeid = '12'), 
         mgr_emp_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4'), 
         dept_no:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '4')
