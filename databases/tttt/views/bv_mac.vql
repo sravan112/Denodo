@@ -13,7 +13,7 @@ CREATE OR REPLACE WRAPPER JDBC bv_mac
     INDEX 'SYS_C007205' CLUSTER UNIQUE PRIMARY ( 'ID' );
 
 CREATE OR REPLACE TABLE bv_mac I18N us_mst (
-        id:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3'), 
+        id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3'), 
         reserve:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93'), 
         checklist:text (sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '12'), 
         samm:text (sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '12')
