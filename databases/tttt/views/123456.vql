@@ -11,7 +11,7 @@ CREATE OR REPLACE WRAPPER JDBC oracle_regions
     INDEX 'REG_ID_PK' CLUSTER UNIQUE PRIMARY ( 'REGION_ID' );
 
 CREATE OR REPLACE TABLE "123456" I18N us_mst (
-        region_id:decimal (sourcetyperadix = '10', sourcetypeid = '3'), 
+        region_id:int (sourcetyperadix = '10', sourcetypeid = '3'), 
         region_name:text (sourcetyperadix = '10', sourcetypesize = '25', sourcetypeid = '12')
     )
     CONSTRAINT 'REG_ID_PK' PRIMARY KEY ( 'region_id' )
