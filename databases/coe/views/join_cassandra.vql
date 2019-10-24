@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW "Join_cassandra" AS SELECT bv_coedb.id AS id, bv_coedb.common_name AS common_name, bv_test_cassandra.species AS species, bv_test_cassandra.average_size AS average_size, bv_test_cassandra.population AS population FROM bv_coedb AS bv_coedb LEFT OUTER JOIN bv_test_cassandra AS bv_test_cassandra ON bv_coedb.id = bv_test_cassandra.population ;
+
+ALTER VIEW "Join_cassandra"
+ LAYOUT (bv_coedb = [20, 20, 200, 66], bv_test_cassandra = [800, 103, 200, 106]);
+

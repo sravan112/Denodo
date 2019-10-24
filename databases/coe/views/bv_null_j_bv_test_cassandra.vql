@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW bv_null_j_bv_test_cassandra AS SELECT bv_null.emp_id AS emp_id, bv_null.emp_name AS emp_name, bv_null.roller AS roller, bv_test_cassandra.species AS species, bv_test_cassandra.average_size AS average_size, bv_test_cassandra.common_name AS common_name, bv_test_cassandra.population AS population FROM bv_null AS bv_null LEFT OUTER JOIN bv_test_cassandra AS bv_test_cassandra ON bv_null.emp_id = bv_test_cassandra.population ;
+
+ALTER VIEW bv_null_j_bv_test_cassandra
+ LAYOUT (bv_null = [20, 20, 200, 86], bv_test_cassandra = [634, 63, 200, 106]);
+

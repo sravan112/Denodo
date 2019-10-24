@@ -1,0 +1,29 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_coedb
+    DATASOURCENAME=coe_cassandra
+    CATALOGNAME='${databases.coe.views.jdbc.bv_coedb.CATALOGNAME}' 
+    RELATIONNAME='coedb' 
+    OUTPUTSCHEMA (
+        id = 'id' :'java.lang.Integer' (OPT) (description='', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        common_name = 'common_name' :'java.lang.String' (OPT) (description='', sourcetypeid='12', sourcetypename='text')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'PARTITION KEY' PRIMARY KEY ( 'id' );
+
+CREATE OR REPLACE TABLE bv_coedb I18N au_cst (
+        id:int (sourcetypeid = '4', description = ''), 
+        common_name:text (sourcetypeid = '12', description = '')
+    )
+    CONSTRAINT 'PARTITION KEY' PRIMARY KEY ( 'id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_coedb(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD common_name (any) OPT ANY
+        )
+        OUTPUTLIST (common_name, id
+        )
+        WRAPPER (jdbc bv_coedb)
+    );
+

@@ -1,0 +1,35 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_test_cassandra
+    DATASOURCENAME=coe_cassandra
+    CATALOGNAME='${databases.coe.views.jdbc.bv_test_cassandra.CATALOGNAME}' 
+    RELATIONNAME='testdb' 
+    OUTPUTSCHEMA (
+        species = 'species' :'java.lang.String' (OPT) (description='', sourcetypeid='12', sourcetypename='text')  NOT NULL SORTABLE,
+        average_size = 'average_size' :'java.lang.Integer' (OPT) (description='', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        common_name = 'common_name' :'java.lang.String' (OPT) (description='', sourcetypeid='12', sourcetypename='text')  NOT NULL SORTABLE,
+        population = 'population' :'java.lang.Integer' (OPT) (description='', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'PARTITION KEY' PRIMARY KEY ( 'species' );
+
+CREATE OR REPLACE TABLE bv_test_cassandra I18N au_cst (
+        species:text (sourcetypeid = '12', description = ''), 
+        average_size:int (sourcetypeid = '4', description = ''), 
+        common_name:text (sourcetypeid = '12', description = ''), 
+        population:int (sourcetypeid = '4', description = '')
+    )
+    PRIMARY KEY ( 'species' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_test_cassandra(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD species (any) OPT ANY
+             ADD average_size (any) OPT ANY
+             ADD common_name (any) OPT ANY
+             ADD population (any) OPT ANY
+        )
+        OUTPUTLIST (average_size, common_name, population, species
+        )
+        WRAPPER (jdbc bv_test_cassandra)
+    );
+

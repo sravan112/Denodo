@@ -1,0 +1,32 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_null
+    DATASOURCENAME=coe_cassandra
+    CATALOGNAME='${databases.coe.views.jdbc.bv_null.CATALOGNAME}' 
+    RELATIONNAME='coedb' 
+    OUTPUTSCHEMA (
+        emp_id = 'emp_id' :'java.lang.Integer' (OPT) (description='', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        emp_name = 'emp_name' :'java.lang.String' (OPT) (description='', sourcetypeid='12', sourcetypename='text')  NOT NULL SORTABLE,
+        roller = 'roller' :'java.lang.Integer' (OPT) (description='', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'PARTITION KEY' PRIMARY KEY ( 'emp_id' );
+
+CREATE OR REPLACE TABLE bv_null I18N au_cst (
+        emp_id:int (sourcetypeid = '4', description = ''), 
+        emp_name:text (sourcetypeid = '12', description = ''), 
+        roller:int (sourcetypeid = '4', description = '')
+    )
+    CONSTRAINT 'PARTITION KEY' PRIMARY KEY ( 'emp_id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_null(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD emp_id (any) OPT ANY
+             ADD emp_name (any) OPT ANY
+             ADD roller (any) OPT ANY
+        )
+        OUTPUTLIST (emp_id, emp_name, roller
+        )
+        WRAPPER (jdbc bv_null)
+    );
+

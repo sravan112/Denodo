@@ -1,0 +1,35 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC coe_cassandra_generic
+    DRIVERCLASSNAME = 'com.dbschema.CassandraJdbcDriver'
+    DATABASEURI = '${databases.coe.datasources.jdbc.coe_cassandra_generic.DATABASEURI}'
+    USERNAME = '${databases.coe.datasources.jdbc.coe_cassandra_generic.USERNAME}'
+    USERPASSWORD = '${databases.coe.datasources.jdbc.coe_cassandra_generic.USERPASSWORD}' ${databases.coe.datasources.jdbc.coe_cassandra_generic.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'C:\Denodo\DenodoPlatform7.0\lib\extensions\jdbc-drivers\cassandra-1.0'
+    DATABASENAME = 'Generic'
+    DATABASEVERSION = ''
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = 'Select 1'
+    INITIALSIZE = 0
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = false
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXSLEEPINGPS = 4
+    INITIALCAPACITYPS = 8
+    DATA_LOAD_CONFIGURATION (
+        BATCHINSERTSIZE = 200
+    )
+    SOURCECONFIGURATION (
+        allowliteralasparameter = false,
+        supportspreparedstatement = false,
+        delegateselection = false,
+        delegatesubquery = false
+    );
+

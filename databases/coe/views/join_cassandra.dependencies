@@ -1,0 +1,3 @@
+﻿/databases/coe/datasources/jdbc/coe_cassandra.vql
+/databases/coe/views/bv_coedb.vql
+/databases/coe/views/bv_test_cassandra.vql

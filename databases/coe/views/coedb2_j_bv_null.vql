@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW coedb2_j_bv_null AS SELECT coedb2.emp_id AS emp_id, coedb2.emp_name AS emp_name, coedb2.roller AS roller FROM coedb2 AS coedb2 INNER JOIN bv_null AS bv_null ON coedb2.emp_id = bv_null.emp_id ;
+
+ALTER VIEW coedb2_j_bv_null
+ LAYOUT (coedb2 = [20, 20, 200, 86], bv_null = [495, 67, 200, 86]);
+
