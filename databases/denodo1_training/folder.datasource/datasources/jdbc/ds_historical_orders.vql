@@ -1,0 +1,35 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_historical_orders
+    FOLDER = '/datasource'
+    DRIVERCLASSNAME = 'com.cloudera.impala.jdbc41.Driver'
+    DATABASEURI = '${databases.denodo1_training.folder.datasource.datasources.jdbc.ds_historical_orders.DATABASEURI}'
+    USERNAME = '${databases.denodo1_training.folder.datasource.datasources.jdbc.ds_historical_orders.USERNAME}'
+    USERPASSWORD = '${databases.denodo1_training.folder.datasource.datasources.jdbc.ds_historical_orders.USERPASSWORD}' ${databases.denodo1_training.folder.datasource.datasources.jdbc.ds_historical_orders.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'impala-2.3'
+    DATABASENAME = 'impala'
+    DATABASEVERSION = '2_3'
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = 'select 1'
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXSLEEPINGPS = 4
+    INITIALCAPACITYPS = 8
+    DATA_LOAD_CONFIGURATION (
+        BATCHINSERTSIZE = 200
+    )
+    SOURCECONFIGURATION (
+        delegateaggregatefunctionslist = (avg, count, max, min, stdev, stdevp, sum, var, varp),
+        delegatescalarfunctionslist = (abs, acos, addday, addhour, addminute, addmonth, addsecond, addweek, addyear, ascii, asin, atan, atan2, case, cast, ceil, char, coalesce, concat, cos, cot, current_date, degrees, div, exp, firstdayofmonth, firstdayofweek, floor, formatdate, getday, getdayofweek, getdayofyear, getdaysbetween, gethour, getmillisecond, getminute, getmonth, getmonthsbetween, getsecond, gettimeinmillis, getyear, instr, lastdayofmonth, lastdayofweek, len, ln, log, lower, ltrim, max, min, mod, mult, nextweekday, now, nullif, pi, position, pow, power, previousweekday, radians, rand, regexp, removeaccents, repeat, replace, round, rtrim, sign, sin, sqrt, substr, substring, subtract, sum, tan, textcat, textconstant, to_date, to_localdate, to_timestamp, trim, trunc, upper),
+        delegateoperatorslist = (between, containsand, containsor, =, exists, >=, >, in, is false, is not null, is null, is true, <=, like, <, <>, notbetween, notin, notlike, regexp_like)
+    );
+
